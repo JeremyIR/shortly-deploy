@@ -1,8 +1,17 @@
-var mongoose = require('./../config');
-var bcrypt = require('bcrypt-nodejs');
-console.log(mongoose.UserSchema);
-var Promise = require('bluebird');
-module.exports.User = mongoose.mongoose.model('User', mongoose.UserSchema);
+var mongoose = require('mongoose');
+
+var userSchema = mongoose.Schema({
+  username: String,
+  password: String
+});
+
+module.exports = mongoose.model('User', userSchema);
+
+// var mongoose = require('./../config');
+// var bcrypt = require('bcrypt-nodejs');
+// console.log(mongoose.UserSchema);
+// var Promise = require('bluebird');
+// module.exports.User = mongoose.mongoose.model('User', mongoose.UserSchema);
 
 // var User = db.Model.extend({
 //   tableName: 'users',

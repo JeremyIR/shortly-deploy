@@ -1,22 +1,49 @@
-var path = require('path');
+//mongoose config
+var mongoose = require('mongoose');
+var crypto = require('crypto');
+var bcrypt = require('bcrypt-nodejs');
+var Promise = require('bluebird');
 
-var mongoose = require('mongoose'); 
-mongoose.connect('mongodb://127.0.0.1:27017');
 
-module.exports.LinkSchema = new mongoose.Schema({ 
-  url: String, 
-  baseUrl: String, 
-  code: String,
+// Check whether development(local) or production environment
+// if (process.env.PORT) {
+//   mongoose.connect('');
+// } else {
+mongoose.connect('mongodb://localhost/test');
+// }
+var linkSchema = mongoose.Schema({
+  url: String,
   title: String,
+  baseurl: String,
+  code: String,
   visits: Number
 });
 
-module.exports.UserSchema = new mongoose.Schema({ 
-  username: String, 
+linkSchema.pre('save', function(next) {
+  var shasum = crypto.createHash('sha1');
+  shasum.update(this.url);
+  this.code = shasum.digest('hex').slice(0, 5);
+  next();
+});
+
+// this makes the link collection accessible in other files
+// mongoose.model('Link', linkSchema);
+
+var userSchema = mongoose.Schema({
+  username: String,
   password: String
 });
 
-module.exports.mongoose = mongoose;
+userSchema.pre('save', function(next) {
+  var cipher = Promise.promisify(bcrypt.hash);
+  return cipher(this.password, null, null).bind(this)
+    .then(function(hash) {
+      this.password = hash;
+    })
+    .then(next);
+});
+
+module.exports.User = mongoose.model('User', userSchema);
 
 // var knex = require('knex')({
 //   client: 'sqlite3',

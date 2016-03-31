@@ -1,6 +1,17 @@
-var mongoose = require('./../config');
-var crypto = require('crypto');
-module.exports.Link = mongoose.mongoose.model('URL', mongoose.LinkSchema);
+var mongoose = require('mongoose');
+
+var linkSchema = mongoose.Schema({
+    url: String,
+    base_url: String,
+    code: String,
+    title: String,
+    visits: Number
+  });
+module.exports = mongoose.model('Link', linkSchema);
+
+// var mongoose = require('./../config');
+// var crypto = require('crypto');
+// module.exports.Link = mongoose.mongoose.model('URL', mongoose.LinkSchema);
 
 // var Link = db.Model.extend({
 //   tableName: 'urls',
