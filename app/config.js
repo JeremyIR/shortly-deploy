@@ -43,7 +43,7 @@ userSchema.pre('save', function(next) {
     .then(next);
 });
 
-module.exports.User = mongoose.model('User', userSchema);
+// module.exports.User = mongoose.model('User', userSchema);
 
 // var knex = require('knex')({
 //   client: 'sqlite3',

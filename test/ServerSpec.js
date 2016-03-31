@@ -4,8 +4,10 @@ var expect = require('chai').expect;
 var app = require('../server-config.js');
 
 var db = require('../app/config');
-var User = require('../app/models/config');
-var Link = require('../app/models/config');
+var User = require('../app/models/user');
+// var User = require('../app/config');
+var Link = require('../app/models/link');
+// var Link = require('../app/config');
 
 /////////////////////////////////////////////////////
 // NOTE: these tests are designed for mongo!
