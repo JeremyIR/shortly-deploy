@@ -5,8 +5,12 @@ module.exports = function(grunt) {
     concat: {
       options: { separator: ';'},
       dist: {
-        src: ['public/lib/**/*.js', 'public/client/**/*.js'],
+        src: ['public/client/**/*.js'],
         dest: 'public/dist/<%= pkg.name %>.js'
+      },
+      lib: {
+        src: ['public/lib/jquery.js', 'public/lib/underscore.js', 'public/lib/backbone.js', 'public/lib/handlebars.js'],
+        dest: 'public/dist/libs.js'
       }
     },
 
@@ -28,7 +32,8 @@ module.exports = function(grunt) {
     uglify: {
       target: {
         files: {
-          'public/dist/<%= pkg.name %>.min.js': ['lib/**/*.js', 'client/**/*.js']
+          'public/dist/<%= pkg.name %>.min.js': ['public/dist/<%= pkg.name %>.js'],
+          'public/dist/libs.min.js': ['public/dist/libs.js'],
         }
       }
     },
