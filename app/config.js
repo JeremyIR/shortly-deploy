@@ -66,3 +66,7 @@ mongoose.connect('mongodb://localhost/test');
 // });
 
 // module.exports = db;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6c77d383832eed987a8b8bc638378abf9da6fdc8

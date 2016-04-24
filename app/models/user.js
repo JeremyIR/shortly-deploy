@@ -3,6 +3,7 @@ var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
 
 var userSchema = mongoose.Schema({
+<<<<<<< HEAD
     username: String,
     password: String
 });
@@ -16,6 +17,21 @@ userSchema.pre('save', function(next) {
         .then(next);
 });
 
+=======
+  username: String,
+  password: String
+});
+
+userSchema.pre('save', function(next) {
+  var cipher = Promise.promisify(bcrypt.hash);
+  return cipher(this.password, null, null).bind(this)
+    .then(function(hash) {
+      this.password = hash;
+    })
+    .then(next);
+});
+
+>>>>>>> 6c77d383832eed987a8b8bc638378abf9da6fdc8
 module.exports = mongoose.model('User', userSchema);
 
 // var mongoose = require('./../config');
@@ -43,3 +59,7 @@ module.exports = mongoose.model('User', userSchema);
 //       });
 //   }
 // });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6c77d383832eed987a8b8bc638378abf9da6fdc8
