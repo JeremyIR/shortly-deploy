@@ -66,4 +66,3 @@ mongoose.connect('mongodb://localhost/test');
 // });
 
 // module.exports = db;
-

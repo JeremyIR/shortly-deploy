@@ -3,17 +3,17 @@ var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
 
 var userSchema = mongoose.Schema({
-  username: String,
-  password: String
+    username: String,
+    password: String
 });
 
 userSchema.pre('save', function(next) {
-  var cipher = Promise.promisify(bcrypt.hash);
-  return cipher(this.password, null, null).bind(this)
-    .then(function(hash) {
-      this.password = hash;
-    })
-    .then(next);
+    var cipher = Promise.promisify(bcrypt.hash);
+    return cipher(this.password, null, null).bind(this)
+        .then(function(hash) {
+            this.password = hash;
+        })
+        .then(next);
 });
 
 module.exports = mongoose.model('User', userSchema);
@@ -43,4 +43,3 @@ module.exports = mongoose.model('User', userSchema);
 //       });
 //   }
 // });
-
